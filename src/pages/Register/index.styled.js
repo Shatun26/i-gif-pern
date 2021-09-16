@@ -6,8 +6,7 @@ export const RegisterWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url(https:cdn.pixabay.com/photo/2020/03/17/20/52/covid-4941846_960_720.png);
-  background-size: ${PxToVw(450)};
+
   h1 {
     user-select: none;
     margin-bottom: ${PxToVw(50)};
@@ -65,10 +64,12 @@ export const RegisterForm = styled.form`
     padding: ${PxToVw(20)} ${PxToVw(40)};
     font-size: ${PxToVw(32)};
     transition: 0.4s;
-
+    cursor: pointer;
     &:hover {
       transform: translate(${PxToVw(-10)}, ${PxToVw(-10)});
       box-shadow: ${PxToVw(6)} ${PxToVw(6)} 0px 0 #fff;
     }
+  }
+  @media(max-width:1024px){
   }
 `;

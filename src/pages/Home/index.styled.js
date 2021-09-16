@@ -8,9 +8,7 @@ export const HomeWrapper = styled.div`
   justify-content: center;
   row-gap: ${PxToVw(50)};
   height: 100vh;
-  background-image: url(https:cdn.pixabay.com/photo/2020/03/17/20/52/covid-4941846_960_720.png);
-  background-size: ${PxToVw(450)};
-  background-position: 0 ${({bgp})=> bgp}px;
+
   h1 {
     user-select: none;
     font-size: ${PxToVw(100)};
@@ -18,6 +16,18 @@ export const HomeWrapper = styled.div`
     text-shadow: ${PxToVw(3)} ${PxToVw(3)} #32c2ac;
     position: relative;
     z-index: 2;
+  }
+  @media (max-width: 1024px) {
+    h1 {
+      font-size: ${PxToVw(250)};
+    }
+  }
+  @media (max-width: 640px) {
+  h1{
+    font-size: ${PxToVw(450)};
+    text-shadow: ${PxToVw(15)} ${PxToVw(15)} #32c2ac;
+    margin-top: ${PxToVw(-500)};
+  }
   }
 `;
 export const LinksWrapper = styled.div`
@@ -51,6 +61,36 @@ export const LinksWrapper = styled.div`
     &:hover {
       transform: translate(${PxToVw(-10)}, ${PxToVw(-10)});
       box-shadow: ${PxToVw(6)} ${PxToVw(6)} 0px 0 #fff;
+    }
+  }
+  @media (max-width: 1024px) {
+    &::after {
+    top: ${PxToVw(-500)};
+    left: -6vw;
+    border-radius: 30% / 40%;
+    width: ${PxToVw(1000)};
+    height: ${PxToVw(900)};
+  }
+    a {
+      padding: ${PxToVw(60)} ${PxToVw(80)};
+      border-radius: ${PxToVw(60)};
+      font-size: ${PxToVw(64)};
+    }
+  }
+  @media (max-width: 640px) {
+    flex-direction: column;
+    row-gap: ${PxToVw(150)};
+    margin-top: ${PxToVw(100)};
+    &::after {
+    top: ${PxToVw(-800)};
+    left: -9vw;
+    border-radius: 30% / 40%;
+    width: ${PxToVw(1700)};
+    height: ${PxToVw(1900)};
+  }
+    a{
+      padding: ${PxToVw(50)} ${PxToVw(400)};
+      font-size: ${PxToVw(150)};
     }
   }
 `;
