@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as H from './index.styled';
 
 export default function LoginLayout({ handleLogin, handleChange }) {
   return (
     <H.LoginWrapper>
-      <h1>Sign In</h1>
       <H.LoginForm onSubmit={handleLogin}>
+        <h1>Sign In</h1>
         <label htmlFor="email">email</label>
         <input
           onChange={handleChange}
@@ -20,7 +21,10 @@ export default function LoginLayout({ handleLogin, handleChange }) {
           id="password"
           placeholder="1Ge23Garik"
         />
-        <button>Login</button>
+        <H.BtnContainer>
+          <Link to="/">Back</Link>
+          <button>Login</button>
+        </H.BtnContainer>
       </H.LoginForm>
     </H.LoginWrapper>
   );

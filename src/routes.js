@@ -8,14 +8,14 @@ import * as H from './index.styled';
 
 export default function useRoutes(isAuth) {
 // const [bgp, setbgp] = useState(0);
-const [bgp, setBgp] = useState(0);
+// const [bgp, setBgp] = useState(0);
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    setBgp(bgp => bgp + 0.5);
-  }, 50);
-  return () => clearInterval(interval);
-}, []);
+// useEffect(() => {
+//   const interval = setInterval(() => {
+//     setBgp(bgp => bgp + 0.5);
+//   }, 50);
+//   return () => clearInterval(interval);
+// }, []);
 
   if (isAuth) {
     return (
@@ -28,7 +28,7 @@ useEffect(() => {
     );
   }
   return (
-    <H.AnimationWrapper bgp={bgp}>
+    <H.AnimationWrapper >
       <Switch>
         <Route exact path="/">
           <Home />

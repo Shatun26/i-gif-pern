@@ -1,0 +1,71 @@
+.modalAddGif .ant-modal-content,
+.modalDeleteGif .ant-modal-content {
+  background-color: #181c2e;
+}
+
+.modalAddGif .ant-modal-content .ant-modal-header,
+.modalDeleteGif .ant-modal-content .ant-modal-header {
+  background-color: #181c2e;
+}
+
+.modalAddGif .ant-modal-content .ant-modal-header .ant-modal-title,
+.modalDeleteGif .ant-modal-content .ant-modal-header .ant-modal-title {
+  color: white;
+  font-size: 2vw;
+}
+
+.modalAddGif .ant-modal-content .ant-modal-footer button:first-of-type,
+.modalDeleteGif .ant-modal-content .ant-modal-footer button:first-of-type {
+  background-color: #0d224d;
+}
+
+.ant-dropdown-menu {
+  background-color: #252b47;
+}
+
+.ant-dropdown-trigger {
+  margin-bottom: 1.5vw;
+  font-size: 1.2vw;
+}
+
+@media (max-width: 768px) {
+  .ant-dropdown-trigger {
+    margin-bottom: 2vw;
+    font-size: 2vw;
+  }
+  .modalAddGif .ant-modal-content {
+    width: 50vw;
+    -webkit-transform: translateX(-11vw);
+            transform: translateX(-11vw);
+  }
+  .modalAddGif .ant-modal-content .ant-modal-header .ant-modal-title {
+    font-size: 3vw;
+  }
+  .modalDeleteGif .ant-modal-content {
+    width: 40vw;
+    -webkit-transform: translateX(-8vw);
+            transform: translateX(-8vw);
+  }
+  .modalDeleteGif .ant-modal-title {
+    font-size: 2vw;
+  }
+  .modalDeleteGif p {
+    font-size: 2vw;
+  }
+}
+
+@media (max-width: 640px) {
+  .ant-dropdown-trigger {
+    margin-bottom: 3vw;
+    font-size: 4vw;
+  }
+  .modalAddGif .ant-modal-content {
+    width: 80vw;
+    -webkit-transform: translate(-25vw);
+            transform: translate(-25vw);
+  }
+  .modalAddGif .ant-modal-content .ant-modal-header .ant-modal-title {
+    font-size: 4vw;
+  }
+}
+/*# sourceMappingURL=antd.css.map */

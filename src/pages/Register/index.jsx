@@ -2,10 +2,12 @@ import RegisterLayout from './index.layout';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/auth';
-import { SignInService, SignUpService } from '../../services/user';
+import { SignUpService } from '../../services/user';
 import { isEmail } from 'validator';
 
+
 export default function Register() {
+  
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({});
   const handleChange = (e) => {
@@ -35,6 +37,6 @@ export default function Register() {
     }
   };
   return (
-    <RegisterLayout handleChange={handleChange} handleRegister={handleRegister} />
+    <RegisterLayout  handleChange={handleChange} handleRegister={handleRegister} />
   );
 }

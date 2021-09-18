@@ -6,7 +6,10 @@ export const LoginWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  min-height: 600px;
 
+`;
+export const LoginForm = styled.form`
   h1 {
     user-select: none;
     font-size: ${PxToVw(100)};
@@ -14,9 +17,8 @@ export const LoginWrapper = styled.div`
     text-shadow: ${PxToVw(3)} ${PxToVw(3)} #32c2ac;
     position: relative;
     z-index: 2;
+    text-align: center;
   }
-`;
-export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   width: ${PxToVw(400)};
@@ -25,12 +27,12 @@ export const LoginForm = styled.form`
   &::after {
     position: absolute;
     content: '';
-    top: ${PxToVw(-220)};
+    top: ${PxToVw(-50)};
     left: -8.5vw;
     background-color: #252836;
     border-radius: 30% / 40%;
     width: ${PxToVw(700)};
-    height: ${PxToVw(600)};
+    height: ${PxToVw(700)};
     z-index: -1;
     opacity: 0.97;
     filter: blur(${PxToVw(60)});
@@ -54,7 +56,8 @@ export const LoginForm = styled.form`
       rgba(28, 30, 41, 1) 100%
     );
   }
-  button {
+  button,
+  a {
     margin: 0 auto;
     display: block;
     background-color: #1c1e29;
@@ -68,6 +71,100 @@ export const LoginForm = styled.form`
     &:hover {
       transform: translate(${PxToVw(-10)}, ${PxToVw(-10)});
       box-shadow: ${PxToVw(6)} ${PxToVw(6)} 0px 0 #fff;
+      color: white;
     }
   }
+  @media (max-width: 1024px) {
+    width: ${PxToVw(800)};
+    &::after {
+      top: ${PxToVw(-160)};
+      left: -10.5vw;
+      width: ${PxToVw(1200)};
+      height: ${PxToVw(1500)};
+    }
+    h1 {
+      margin-bottom: ${PxToVw(100)};
+      font-size: ${PxToVw(200)};
+      text-shadow: ${PxToVw(10)} ${PxToVw(10)} rgb(50, 194, 172);
+    }
+    label {
+      font-size: ${PxToVw(55)};
+      margin-bottom: ${PxToVw(15)};
+    }
+    input {
+      padding: ${PxToVw(10)};
+      font-size: ${PxToVw(65)};
+      margin-bottom: ${PxToVw(60)};
+    }
+    button,
+    a {
+      margin-top: ${PxToVw(30)};
+      border-radius: ${PxToVw(30)};
+      padding: ${PxToVw(40)} ${PxToVw(90)};
+      font-size: ${PxToVw(62)};
+    }
+  }
+  @media (min-aspect-ratio: 6/5) and (max-width: 1024px) {
+    width: ${PxToVw(700)};
+    &::after {
+      top: ${PxToVw(-160)};
+      left: -13.5vw;
+      width: ${PxToVw(1200)};
+      height: ${PxToVw(1000)};
+    }
+    h1 {
+      margin-bottom: ${PxToVw(50)};
+      font-size: ${PxToVw(130)};
+      text-shadow: ${PxToVw(6)} ${PxToVw(6)} rgb(50, 194, 172);
+    }
+    label {
+      font-size: ${PxToVw(30)};
+      margin-bottom: ${PxToVw(10)};
+    }
+    input {
+      padding: ${PxToVw(10)};
+      font-size: ${PxToVw(35)};
+      margin-bottom: ${PxToVw(30)};
+    }
+    button,
+    a {
+      margin-top: ${PxToVw(15)};
+      border-radius: ${PxToVw(30)};
+      padding: ${PxToVw(30)} ${PxToVw(90)};
+      font-size: ${PxToVw(42)};
+    }
+  }
+  @media (max-width: 640px) {
+    width: ${PxToVw(1400)};
+    &::after {
+      top: ${PxToVw(-160)};
+      left: -10.5vw;
+      width: ${PxToVw(1800)};
+      height: ${PxToVw(2050)};
+    }
+    h1 {
+      margin-bottom: ${PxToVw(100)};
+      font-size: ${PxToVw(300)};
+      text-shadow: ${PxToVw(15)} ${PxToVw(15)} rgb(50, 194, 172);
+    }
+    label {
+      font-size: ${PxToVw(85)};
+      margin-bottom: ${PxToVw(30)};
+    }
+    input {
+      padding: ${PxToVw(10)};
+      font-size: ${PxToVw(105)};
+      margin-bottom: ${PxToVw(120)};
+    }
+    button,
+    a {
+      margin-top: ${PxToVw(30)};
+      border-radius: ${PxToVw(80)};
+      padding: ${PxToVw(40)} ${PxToVw(150)};
+      font-size: ${PxToVw(122)};
+    }
+  }
+`;
+export const BtnContainer = styled.div`
+  display: flex;
 `;

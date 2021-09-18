@@ -23,11 +23,11 @@ export const HomeWrapper = styled.div`
     }
   }
   @media (max-width: 640px) {
-  h1{
-    font-size: ${PxToVw(450)};
-    text-shadow: ${PxToVw(15)} ${PxToVw(15)} #32c2ac;
-    margin-top: ${PxToVw(-500)};
-  }
+    h1 {
+      font-size: ${PxToVw(450)};
+      text-shadow: ${PxToVw(15)} ${PxToVw(15)} #32c2ac;
+      margin-top: ${PxToVw(-500)};
+    }
   }
 `;
 export const LinksWrapper = styled.div`
@@ -57,20 +57,20 @@ export const LinksWrapper = styled.div`
     padding: ${PxToVw(30)} ${PxToVw(40)};
     font-size: ${PxToVw(32)};
     transition: 0.4s;
-
     &:hover {
       transform: translate(${PxToVw(-10)}, ${PxToVw(-10)});
       box-shadow: ${PxToVw(6)} ${PxToVw(6)} 0px 0 #fff;
+      color: white !important;
     }
   }
   @media (max-width: 1024px) {
     &::after {
-    top: ${PxToVw(-500)};
-    left: -6vw;
-    border-radius: 30% / 40%;
-    width: ${PxToVw(1000)};
-    height: ${PxToVw(900)};
-  }
+      top: ${PxToVw(-500)};
+      left: -6vw;
+      border-radius: 30% / 40%;
+      width: ${PxToVw(1000)};
+      height: ${PxToVw(900)};
+    }
     a {
       padding: ${PxToVw(60)} ${PxToVw(80)};
       border-radius: ${PxToVw(60)};
@@ -82,13 +82,13 @@ export const LinksWrapper = styled.div`
     row-gap: ${PxToVw(150)};
     margin-top: ${PxToVw(100)};
     &::after {
-    top: ${PxToVw(-800)};
-    left: -9vw;
-    border-radius: 30% / 40%;
-    width: ${PxToVw(1700)};
-    height: ${PxToVw(1900)};
-  }
-    a{
+      top: ${PxToVw(-800)};
+      left: -9vw;
+      border-radius: 30% / 40%;
+      width: ${PxToVw(1700)};
+      height: ${PxToVw(1900)};
+    }
+    a {
       padding: ${PxToVw(50)} ${PxToVw(400)};
       font-size: ${PxToVw(150)};
     }
