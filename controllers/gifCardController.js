@@ -23,7 +23,7 @@ class GifCardController {
     } catch (error) {}
   }
   async delete(req, res) {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
       const gifcard = await GifCard.findByPk(id);
       if (!gifcard) {
