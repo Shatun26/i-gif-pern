@@ -43,7 +43,7 @@ export default function Main() {
       dispatch(addGif(res.data));
     }
     setNewGif({});
-    setGifFile()
+    setGifFile();
   };
 
   const handleChooseCategory = (category) => {
@@ -73,6 +73,7 @@ export default function Main() {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setGifFile();
   };
   const [isModalDeleteVisible, setIsModaDeletelVisible] = useState(false);
 

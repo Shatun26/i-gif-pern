@@ -71,7 +71,7 @@ export default function MainLayout({
             multiple={false}
           />
           <H.ModalAddBtn htmlFor="upload">
-            <p>Upload {gifFile && 'ok'}</p>
+            <p> {gifFile && '✔️' || 'Upload'}</p>
           </H.ModalAddBtn>
         </H.ModalAddContainer>
       </Modal>

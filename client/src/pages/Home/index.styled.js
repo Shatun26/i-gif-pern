@@ -8,6 +8,7 @@ export const HomeWrapper = styled.div`
   justify-content: center;
   row-gap: ${PxToVw(50)};
   height: 100vh;
+  min-height: 600px;
 
   h1 {
     user-select: none;

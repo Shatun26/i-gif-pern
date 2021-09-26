@@ -74,6 +74,7 @@ export const RegisterForm = styled.form`
     &:hover {
       transform: translate(${PxToVw(-10)}, ${PxToVw(-10)});
       box-shadow: ${PxToVw(6)} ${PxToVw(6)} 0px 0 #fff;
+      color: white;
     }
   }
   @media (max-width: 1024px) {

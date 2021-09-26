@@ -1,6 +1,7 @@
 const { User } = require('../models/models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { isEmail } = require('validator');
 
 const generateJwt = (id, email, firstname, lastname) => {
   return jwt.sign({ id, email, firstname, lastname }, process.env.SECRET_KEY, {
@@ -13,6 +14,24 @@ class UserController {
     const { email, password, firstname, lastname } = req.body;
     if (!email || !password || !firstname || !lastname) {
       return res.status(400).json({ message: 'Incorrect data' });
+    } else if (password.length < 6) {
+      return res.status(400).json({ message: 'Password too short!' });
+    } else if (!isEmail(email)) {
+      return res.status(400).json({ message: 'Email invalid' });
+    } else if (!/^[a-zA-Zа-яА-Я]+$/.test(firstname)) {
+      return res.status(400).json({
+        message:
+          'The first name must only contain letters and must not contain spaces.',
+      });
+    } else if (!/^[a-zA-Zа-яА-Я]+$/.test(lastname)) {
+      return res.status(400).json({
+        message:
+          'The last name must only contain letters and must not contain spaces.',
+      });
+    } else if (password.includes(' ')) {
+      return res
+        .status(400)
+        .json({ message: 'Password must not contain spaces' });
     }
     const candidate = await User.findOne({ where: { email } });
     if (candidate) {
@@ -58,7 +77,7 @@ class UserController {
       req.user.firstname,
       req.user.lastname
     );
-    return res.json({token});
+    return res.json({ token });
   }
 }
 module.exports = new UserController();
