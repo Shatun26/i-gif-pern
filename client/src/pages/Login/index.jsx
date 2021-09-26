@@ -4,6 +4,7 @@ import { login } from '../../redux/slices/auth';
 import { SignInService } from '../../services/user';
 import LoginLayout from './index.layout';
 import { isEmail } from 'validator';
+import { message } from 'antd';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -16,20 +17,27 @@ export default function Login() {
       };
     });
   };
+
+  const errorMessage = (title) => {
+    message.error({
+      content: title,
+      className: 'custom-error-message',
+    });
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!credentials.email || !credentials.password) {
-      console.log('Email of password is empty!');
-    } else if (credentials.password.length < 6) {
-      console.log('Password too short!');
+      errorMessage('Email of password is empty!');
     } else if (!isEmail(credentials.email)) {
-      console.log('Email invalid');
+      errorMessage('Email invalid');
     } else {
       const res = await SignInService(credentials);
+      console.log(res);
       if (res.status !== 200) {
-        console.log(res.data.error);
+        errorMessage(res.data.message);
       } else {
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', res.data);
         dispatch(login());
       }
     }

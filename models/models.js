@@ -16,6 +16,12 @@ const GifCard = sequelize.define('gifcard', {
   },
   name: { type: DataTypes.STRING, allowNull: false },
   category: { type: DataTypes.STRING, allowNull: false },
+  url: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue:
+      'https://psv4.userapi.com/c520036/u2000024904/docs/d19/9c76750ce5a5/file.gif?extra=zv-QLOVxcIfNHNePscrOBFFIKSKcVBteKDHYKbRoR83oSrcvxriA_6qVU5hHxSYvQ1dba9sAPxjd68vMYvjpvns_l5Z-QQ6RiUpFtfL7rbnFlRnWumfCJpZgm8n7TaRKSovcxGkIAYygbSadJ3pm-JKj',
+  },
 });
 
 User.hasMany(GifCard);

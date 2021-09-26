@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/slices/auth';
-import { addGif, deleteGif } from '../../redux/slices/main';
+import { addGif, deleteGif, setGifCards } from '../../redux/slices/main';
+import {
+  CreateCardService,
+  DeleteCardService,
+  GetAllUserCardsService,
+} from '../../services/gifcards';
 import MainLayout from './index.layout';
 
 export default function Main() {
   const { GifCards } = useSelector((state) => state.main);
+  const { isAuth } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -15,6 +21,12 @@ export default function Main() {
   const [filterCategory, setfilterCategory] = useState('All');
 
   const [newGif, setNewGif] = useState({});
+  const [gifFile, setGifFile] = useState();
+
+  const handleGetAllCards = async () => {
+    const res = await GetAllUserCardsService();
+    dispatch(setGifCards(res.data));
+  };
 
   const handleAddGif = (e) => {
     setNewGif((props) => {
@@ -24,15 +36,14 @@ export default function Main() {
       };
     });
   };
-  const handlelDispathGif = async () => {
-    const newGifCreate = {
-      ...newGif,
-      created: new Date(),
-      url: 'https://thumbs.gfycat.com/AnnualLightheartedFlickertailsquirrel-size_restricted.gif',
-      id: Math.max(...GifCards.map((card) => card.id)) + 1 ,
-    };
-    dispatch(addGif(newGifCreate))
+
+  const handlelDispathGif = async (formData) => {
+    const res = await CreateCardService(formData);
+    if (res.status === 200) {
+      dispatch(addGif(res.data));
+    }
     setNewGif({});
+    setGifFile()
   };
 
   const handleChooseCategory = (category) => {
@@ -50,8 +61,14 @@ export default function Main() {
   };
 
   const handleOk = () => {
-    setIsModalVisible(false);
-    handlelDispathGif();
+    if (newGif.name && newGif.category && gifFile) {
+      setIsModalVisible(false);
+      const formData = new FormData();
+      formData.append('file', gifFile);
+      formData.append('name', newGif.name);
+      formData.append('category', newGif.category);
+      handlelDispathGif(formData);
+    }
   };
 
   const handleCancel = () => {
@@ -64,9 +81,12 @@ export default function Main() {
     setIsModaDeletelVisible(true);
   };
 
-  const handleDeleteOk = () => {
+  const handleDeleteOk = async () => {
     setIsModaDeletelVisible(false);
-    dispatch(deleteGif(deleteIdCard));
+    const res = await DeleteCardService(deleteIdCard);
+    if (res.status === 204) {
+      dispatch(deleteGif(deleteIdCard));
+    }
   };
 
   const handleDeleteCancel = () => {
@@ -77,6 +97,11 @@ export default function Main() {
     dispatch(logOut());
     localStorage.removeItem('token');
   };
+
+  useEffect(() => {
+    if (isAuth) handleGetAllCards();
+  }, []);
+
   return (
     <MainLayout
       showModal={showModal}
@@ -96,6 +121,8 @@ export default function Main() {
       handleAddGif={handleAddGif}
       newGif={newGif}
       handleChooseCategory={handleChooseCategory}
+      gifFile={gifFile}
+      setGifFile={setGifFile}
     />
   );
 }

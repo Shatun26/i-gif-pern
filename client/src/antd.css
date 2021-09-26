@@ -68,4 +68,8 @@
     font-size: 4vw;
   }
 }
+
+.custom-error-message .ant-message-notice-content {
+  background-color: rebeccapurple;
+}
 /*# sourceMappingURL=antd.css.map */

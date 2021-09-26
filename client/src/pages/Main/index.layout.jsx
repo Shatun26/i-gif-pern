@@ -22,6 +22,8 @@ export default function MainLayout({
   filterCategory,
   handleAddGif,
   newGif,
+  gifFile,
+  setGifFile,
 }) {
   return (
     <H.MainWrapper>
@@ -36,11 +38,17 @@ export default function MainLayout({
         width={'30vw'}
       >
         <H.ModalAddContainer>
-          <H.ModalAddInput id='name' value={newGif?.name || ''} onChange={handleAddGif} autoFocus={true} placeholder={'Card`s name'} />
+          <H.ModalAddInput
+            id="name"
+            value={newGif?.name || ''}
+            onChange={handleAddGif}
+            autoFocus={true}
+            placeholder={'Card`s name'}
+          />
           <H.ModalAddInputCategory
-          id='category'
-          value={newGif?.category || ''}
-          onChange={handleAddGif}
+            id="category"
+            value={newGif?.category || ''}
+            onChange={handleAddGif}
             placeholder={'Put in category'}
           />
           <h1>or</h1>
@@ -56,9 +64,14 @@ export default function MainLayout({
               {newCardCategory} <DownOutlined />
             </a>
           </Dropdown>
-          <input type="file" id="upload" />
+          <input
+            type="file"
+            id="upload"
+            onChange={(e) => setGifFile(e.target.files[0])}
+            multiple={false}
+          />
           <H.ModalAddBtn htmlFor="upload">
-            <p>Upload</p>
+            <p>Upload {gifFile && 'ok'}</p>
           </H.ModalAddBtn>
         </H.ModalAddContainer>
       </Modal>
@@ -97,8 +110,7 @@ export default function MainLayout({
           <H.BtnAddGif onClick={showModal}>+</H.BtnAddGif>
         </H.ControlsContainer>
         <H.CardConteiner>
-          
-          {GifCards.length ===0 && <p>Add new gif</p>}
+          {GifCards.length === 0 && <p>Add new gif</p>}
           {GifCards.filter((card) => {
             if (filterCategory !== 'All') {
               return card.category === filterCategory;
@@ -106,7 +118,7 @@ export default function MainLayout({
           }).map((card) => (
             <H.GifCard>
               <h1>{card.name}</h1>
-              <h1>{format(new Date(card.created), 'dd.MM.yy')}</h1>
+              <h1>{format(new Date(card.createdAt), 'dd.MM.yy')}</h1>
               <H.ImgContainer>
                 <img src={card.url} alt="gif" />
               </H.ImgContainer>
@@ -125,7 +137,7 @@ const menu = (GifCards, handleChooseCategory) => (
   <Menu>
     {Array.from(new Set(GifCards.map((card) => card.category))).map(
       (category, id) => (
-        <Menu.Item key={id} onClick={() => handleChooseCategory(category) }>
+        <Menu.Item key={id} onClick={() => handleChooseCategory(category)}>
           {category}
         </Menu.Item>
       )
