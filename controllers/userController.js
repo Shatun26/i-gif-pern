@@ -70,14 +70,5 @@ class UserController {
     );
     return res.status(200).json(token);
   }
-  async check(req, res) {
-    const token = generateJwt(
-      req.user.id,
-      req.user.email,
-      req.user.firstname,
-      req.user.lastname
-    );
-    return res.json({ token });
-  }
 }
 module.exports = new UserController();
