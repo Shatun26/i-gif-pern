@@ -6,7 +6,8 @@
       background-color: #181c2e;
       .ant-modal-title {
         color: white;
-        font-size: 2vw;
+        font-size: 1.5vw;
+        line-height: 120%;
       }
     }
 
@@ -70,6 +71,24 @@
           font-size: 4vw;
         }
       }
+    }
+  }
+  .modalDeleteGif {
+    .ant-modal-content {
+      width: 80vw;
+      transform: translate(-28vw);
+
+      .ant-modal-header {
+        .ant-modal-title {
+          font-size: 4vw;
+        }
+      }
+      .ant-modal-body{
+        p{
+          font-size: 4vw;
+        }
+      }
+     
     }
   }
 }

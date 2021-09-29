@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PxToVw } from '../../index.styled';
-
+import { keyframes } from 'styled-components';
 export const MainWrapper = styled.div`
   background-color: #252836;
   padding: ${PxToVw(100)} ${PxToVw(150)};
@@ -11,9 +11,9 @@ export const MainWrapper = styled.div`
     padding: 0 ${PxToVw(100)};
     padding-bottom: ${PxToVw(100)};
   }
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     padding: 0 ${PxToVw(50)};
-    padding-bottom: ${PxToVw(100)};
+    padding-bottom: ${PxToVw(500)};
   }
 `;
 export const MainHeader = styled.div`
@@ -38,6 +38,7 @@ export const MainHeader = styled.div`
     padding: ${PxToVw(8)} ${PxToVw(20)};
     cursor: pointer;
     font-size: ${PxToVw(20)};
+    user-select: none;
   }
   @media (max-width: 768px) {
     padding: ${PxToVw(60)} 0;
@@ -91,6 +92,9 @@ export const FilterBtn = styled.button`
   cursor: pointer;
   padding: ${PxToVw(10)} 0;
   height: fit-content;
+  color: ${({ active }) => (active ? '#32c2ac' : 'white')};
+  text-decoration: ${({ active }) => (active ? 'underline' : '')};
+  text-transform: capitalize;
   @media (max-width: 768px) {
     font-size: ${PxToVw(40)};
   }
@@ -102,6 +106,7 @@ export const ControlsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  user-select: none;
 `;
 export const BtnAddGif = styled.button`
   background-color: #1c1e29;
@@ -110,6 +115,7 @@ export const BtnAddGif = styled.button`
   border: 3px dashed white;
   border-radius: ${PxToVw(15)};
   cursor: pointer;
+  user-select: none;
   @media (max-width: 640px) {
     padding: ${PxToVw(120)} ${PxToVw(100)};
     font-size: ${PxToVw(150)};
@@ -131,11 +137,13 @@ export const CardConteiner = styled.div`
     grid-column: 2/4;
     margin-bottom: 0;
     font-size: 1.5vw;
+    user-select: none;
   }
   @media (max-width: 768px) {
     grid-template-columns: 1fr 1fr 1fr;
     p {
       font-size: 2vw;
+      grid-column: 1/4;
     }
   }
   @media (max-width: 640px) {
@@ -145,8 +153,20 @@ export const CardConteiner = styled.div`
     margin-top: ${PxToVw(100)};
 
     p {
-      font-size: 2.5vw;
+      font-size: 4.5vw;
     }
+  }
+`;
+const appear = keyframes`
+  from {
+    opacity:0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity:1;
+    transform: scale(1);
+
   }
 `;
 export const GifCard = styled.div`
@@ -154,7 +174,11 @@ export const GifCard = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${PxToVw(10)} ${PxToVw(20)};
+  animation: ${appear} 0.3s linear;
+  user-select: none;
+
   h1 {
+    user-select: auto;
     font-size: ${PxToVw(20)};
     margin-bottom: ${PxToVw(10)};
   }
@@ -173,7 +197,7 @@ export const GifCard = styled.div`
     }
   }
   @media (max-width: 640px) {
-    padding: ${PxToVw(30)} ${PxToVw(40)};
+    padding: ${PxToVw(100)} ${PxToVw(80)};
 
     h1 {
       font-size: ${PxToVw(80)};
@@ -184,6 +208,28 @@ export const GifCard = styled.div`
     }
   }
 `;
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+`;
+export const Loading = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyBpZD0iQ2FwYV8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0OTcgNDk3IiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDQ5NyA0OTciIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PGNpcmNsZSBjeD0iOTgiIGN5PSIzNzYiIGZpbGw9IiM5MDliYTYiIHI9IjUzIi8+PGNpcmNsZSBjeD0iNDM5IiBjeT0iMzM2IiBmaWxsPSIjYzhkMmRjIiByPSI0NiIvPjxjaXJjbGUgY3g9IjM5NyIgY3k9IjExMiIgZmlsbD0iI2U5ZWRmMSIgcj0iMzgiLz48ZWxsaXBzZSBjeD0iNTYuMjQ1IiBjeT0iMjQ0Ljc1NCIgZmlsbD0iIzdlOGI5NiIgcng9IjU2LjI0NSIgcnk9IjU0Ljg3NCIvPjxlbGxpcHNlIGN4PSIyMTcuODIxIiBjeT0iNDQ3LjE3NSIgZmlsbD0iI2EyYWJiOCIgcng9IjUxLjEzMiIgcnk9IjQ5LjgyNSIvPjxlbGxpcHNlIGN4PSIzNDkuMjI5IiBjeT0iNDI3Ljg3MyIgZmlsbD0iI2I5YzNjZCIgcng9IjQ4LjU3NSIgcnk9IjQ3LjI5NyIvPjxlbGxpcHNlIGN4PSIxMTcuMDkyIiBjeT0iMTE0Ljc5NCIgZmlsbD0iIzVmNmM3NSIgcng9IjU4LjgwMSIgcnk9IjU3LjM5NyIvPjxlbGxpcHNlIGN4PSI0NTMuNTM4IiBjeT0iMjE2LjQ3NyIgZmlsbD0iI2RjZTZlYiIgcng9IjQzLjQ2MiIgcnk9IjQyLjY1NiIvPjxjaXJjbGUgY3g9IjI2MyIgY3k9IjYyIiBmaWxsPSIjNGU1YTYxIiByPSI2MiIvPjwvZz48L3N2Zz4=');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  justify-self: center;
+  align-self: center;
+  animation: ${rotate} 4s linear infinite;
+`;
+
 export const ImgContainer = styled.div`
   max-height: ${PxToVw(300)};
   background-color: #1c1e29;
@@ -201,6 +247,7 @@ export const ImgContainer = styled.div`
   }
   @media (max-width: 640px) {
     max-height: ${PxToVw(1400)};
+    margin: ${PxToVw(100)} 0;
   }
 `;
 export const BtnContainer = styled.div`
@@ -221,10 +268,9 @@ export const ModalAddContainer = styled.div`
   }
   @media (max-width: 640px) {
     h1 {
-    font-size: ${PxToVw(75)};
+      font-size: ${PxToVw(75)};
+    }
   }
- 
- }
 `;
 export const ModalAddInput = styled.input`
   background-color: rgba(0, 0, 0, 0);
@@ -295,14 +341,12 @@ export const ModalAddBtn = styled.label`
       height: ${PxToVw(200)};
       width: ${PxToVw(1800)};
       transform: translate(-15vw, 0);
-
-      }
-    &:hover {
-    
-    &::after {
-      transform: translate(70vw, 0);
     }
-  }
+    &:hover {
+      &::after {
+        transform: translate(70vw, 0);
+      }
+    }
   }
 `;
 export const ModalAddInputCategory = styled.input`
@@ -319,5 +363,4 @@ export const ModalAddInputCategory = styled.input`
   @media (max-width: 640px) {
     font-size: ${PxToVw(80)};
   }
-  
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/slices/auth';
 import { addGif, deleteGif, setGifCards } from '../../redux/slices/main';
@@ -17,15 +17,23 @@ export default function Main() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newCardCategory, setNewCardCategory] = useState('Choose category');
   const [deleteIdCard, setdeleteIdCard] = useState();
-
   const [filterCategory, setfilterCategory] = useState('All');
-
   const [newGif, setNewGif] = useState({});
   const [gifFile, setGifFile] = useState();
+  const [IsLoading, setIsLoading] = useState(false);
 
+  const inputfiles = useRef();
   const handleGetAllCards = async () => {
+    setIsLoading(true)
     const res = await GetAllUserCardsService();
-    dispatch(setGifCards(res.data));
+    if (res.status === 401) {
+      dispatch(logOut());
+      localStorage.removeItem('token');
+    } else {
+    setIsLoading(false)
+
+      dispatch(setGifCards(res.data));
+    }
   };
 
   const handleAddGif = (e) => {
@@ -38,12 +46,15 @@ export default function Main() {
   };
 
   const handlelDispathGif = async (formData) => {
+    setIsLoading(true);
     const res = await CreateCardService(formData);
     if (res.status === 200) {
       dispatch(addGif(res.data));
     }
+    setIsLoading(false);
     setNewGif({});
     setGifFile();
+    inputfiles.current.value = '';
   };
 
   const handleChooseCategory = (category) => {
@@ -64,7 +75,7 @@ export default function Main() {
     if (newGif.name && newGif.category && gifFile) {
       setIsModalVisible(false);
       const formData = new FormData();
-      formData.append('file', gifFile);
+      formData.append('file', gifFile[0]);
       formData.append('name', newGif.name);
       formData.append('category', newGif.category);
       handlelDispathGif(formData);
@@ -73,7 +84,9 @@ export default function Main() {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setNewGif({});
     setGifFile();
+    inputfiles.current.value = '';
   };
   const [isModalDeleteVisible, setIsModaDeletelVisible] = useState(false);
 
@@ -124,6 +137,8 @@ export default function Main() {
       handleChooseCategory={handleChooseCategory}
       gifFile={gifFile}
       setGifFile={setGifFile}
+      IsLoading={IsLoading}
+      inputfiles={inputfiles}
     />
   );
 }

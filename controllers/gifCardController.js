@@ -22,7 +22,7 @@ class GifCardController {
       const fileContent = Buffer.from(req.files.file.data, 'binary');
       const params = {
         Bucket: process.env.S3_BUCKET,
-        Key: req.files.file.name,
+        Key: req.files.file.name.replace('.gif', `_${id}.gif`),
         Body: fileContent,
       };
       s3.upload(params, async function (err, data) {
@@ -63,8 +63,20 @@ class GifCardController {
       if (!gifcard) {
         return res.status(404).json({ message: 'Card wasnt found ' });
       }
-      await GifCard.destroy({ where: { id } });
-      return res.status(204).json();
+      const params = {
+        Bucket: process.env.S3_BUCKET,
+        Key: `${gifcard.url.replace(
+          'https://gifcloud-bucket.s3.amazonaws.com/',
+          ''
+        )}`,
+      };
+      s3.deleteObject(params, async function (err, data) {
+        if (err) return res.status(500).json({ error: err.message });
+        else {
+          await GifCard.destroy({ where: { id } });
+          return res.status(204).json();
+        }
+      });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

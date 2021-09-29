@@ -4,6 +4,7 @@ import React from 'react';
 import * as H from './index.styled';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 export default function MainLayout({
   isModalVisible,
   handleCancel,
@@ -24,6 +25,8 @@ export default function MainLayout({
   newGif,
   gifFile,
   setGifFile,
+  IsLoading,
+  inputfiles,
 }) {
   return (
     <H.MainWrapper>
@@ -44,12 +47,14 @@ export default function MainLayout({
             onChange={handleAddGif}
             autoFocus={true}
             placeholder={'Card`s name'}
+            maxLength="30"
           />
           <H.ModalAddInputCategory
             id="category"
             value={newGif?.category || ''}
             onChange={handleAddGif}
             placeholder={'Put in category'}
+            maxLength="30"
           />
           <h1>or</h1>
           <Dropdown
@@ -65,19 +70,20 @@ export default function MainLayout({
             </a>
           </Dropdown>
           <input
+            ref={inputfiles}
             type="file"
             id="upload"
-            onChange={(e) => setGifFile(e.target.files[0])}
-            multiple={false}
+            accept="image/gif"
+            onChange={(e) => setGifFile(e.target.files)}
           />
           <H.ModalAddBtn htmlFor="upload">
-            <p> {gifFile && '✔️' || 'Upload'}</p>
+            <p> {(gifFile && '✔️') || 'Upload'}</p>
           </H.ModalAddBtn>
         </H.ModalAddContainer>
       </Modal>
       <Modal
         title={`Delete "${
-          GifCards.filter((card) => card.id === deleteIdCard)[0]?.name
+          GifCards?.filter((card) => card.id === deleteIdCard)[0]?.name
         }" gif?`}
         visible={isModalDeleteVisible}
         onOk={handleDeleteOk}
@@ -96,12 +102,18 @@ export default function MainLayout({
       <H.MainContent>
         <H.ControlsContainer>
           <H.ContentControls>
-            <H.FilterBtn onClick={() => setfilterCategory('All')}>
+            <H.FilterBtn
+              onClick={() => setfilterCategory('All')}
+              active={'All' === filterCategory}
+            >
               All
             </H.FilterBtn>
             {Array.from(new Set(GifCards.map((card) => card.category))).map(
               (category) => (
-                <H.FilterBtn onClick={() => setfilterCategory(category)}>
+                <H.FilterBtn
+                  active={category === filterCategory}
+                  onClick={() => setfilterCategory(category)}
+                >
                   {category}
                 </H.FilterBtn>
               )
@@ -110,7 +122,9 @@ export default function MainLayout({
           <H.BtnAddGif onClick={showModal}>+</H.BtnAddGif>
         </H.ControlsContainer>
         <H.CardConteiner>
-          {GifCards.length === 0 && <p>Add new gif</p>}
+          {GifCards.length === 0 && !IsLoading && (
+            <p>Let`s ulpoad your first gif!</p>
+          )}
           {GifCards.filter((card) => {
             if (filterCategory !== 'All') {
               return card.category === filterCategory;
@@ -128,6 +142,7 @@ export default function MainLayout({
               </H.BtnContainer>
             </H.GifCard>
           ))}
+          {IsLoading && <H.Loading></H.Loading>}
         </H.CardConteiner>
       </H.MainContent>
     </H.MainWrapper>

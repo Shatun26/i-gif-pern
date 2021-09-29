@@ -33,12 +33,13 @@ export default function Login() {
       errorMessage('Email invalid');
     } else {
       const res = await SignInService(credentials);
-      console.log(res);
-      if (res.status !== 200) {
-        errorMessage(res.data.message);
-      } else {
-        localStorage.setItem('token', res.data);
-        dispatch(login());
+      if (res) {
+        if (res.status !== 200) {
+          errorMessage(res.data.message);
+        } else {
+          localStorage.setItem('token', res.data);
+          dispatch(login());
+        }
       }
     }
   };
